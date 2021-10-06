@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from 'axios';
 
 import { Route, Switch, Redirect } from "react-router-dom";
 import MovieList from './components/MovieList';
@@ -8,8 +9,8 @@ import MovieHeader from './components/MovieHeader';
 
 import EditMovieForm from './components/EditMovieForm';
 import FavoriteMovieList from './components/FavoriteMovieList';
+import AddMovieForm from "./components/AddMovieForm";
 
-import axios from 'axios';
 
 const App = (props) => {
   const [movies, setMovies] = useState([]);
@@ -45,19 +46,24 @@ const App = (props) => {
           <FavoriteMovieList favoriteMovies={favoriteMovies}/>
         
           <Switch>
-            <Route path="/movies/edit/:id" render={() => <EditMovieForm setMovies={setMovies}/>}>
+            <Route path='/movies/addmovie'>
+              <AddMovieForm setMovies={setMovies}/>
+            </Route>
+
+            <Route path="/movies/edit/:id" render={() => 
+              <EditMovieForm setMovies={setMovies}/>}>
             </Route>
 
             <Route path="/movies/:id">
               <Movie deleteMovie={deleteMovie}/>
             </Route>
 
-            <Route path="/movies">
+            <Route path="/movies/">
               <MovieList movies={movies}/>
             </Route>
 
             <Route path="/">
-              <Redirect to="/movies"/>
+              <Redirect to="/movies/"/>
             </Route>
           </Switch>
         </div>
